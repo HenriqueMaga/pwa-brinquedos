@@ -1,0 +1,65 @@
+[
+    {
+        "categoria":"Action Figures",
+        "brinquedos":[
+            {
+                "nome":"Olho Tandera",
+                "imagem":"imgs/toy_001.jpg",
+                "whatsapp":"319999999999",
+                "valor": "R$ 100,00"
+            },
+            {
+                "nome":"Vilãs",
+                "imagem":"imgs/toy_002.jpg",
+                "whatsapp":"319999999999",
+                "valor": "R$ 200,00"
+            },
+            {
+                "nome":"Star Wars",
+                "imagem":"imgs/toy_004.jpg",
+                "whatsapp":"319999999999",
+                "valor": "R$ 10,00"
+            }   
+        ]
+    },
+    {
+        "categoria":"Veículos",
+        "brinquedos":[
+            {
+                "nome":"Bat Móvel",
+                "imagem":"imgs/toy_003.jpg",
+                "whatsapp":"319999999999",
+                "valor": "R$ 50,00"
+            },
+            {
+                "nome":"Star Wars",
+                "imagem":"imgs/toy_004.jpg",
+                "whatsapp":"319999999999",
+                "valor": "R$ 10,00"
+            }                        
+        ]
+    },
+    {
+        "categoria":"Pelúcia",
+        "brinquedos":[
+            {
+                "nome":"Exemplo Brinquedo 5",
+                "imagem":"imgs/toy_003.jpg",
+                "whatsapp":"319999999999",
+                "valor": "R$ 150,00"
+            },
+            {
+                "nome":"Exemplo Brinquedo 6",
+                "imagem":"imgs/toy_004.jpg",
+                "whatsapp":"319999999999",
+                "valor": "R$ 120,00"
+            }                        
+        ]
+    },
+    {
+        "categoria":"Categoria Vazia",
+        "brinquedos":[
+                       
+        ]
+    }          
+]
