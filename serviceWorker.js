@@ -44,3 +44,20 @@ self.addEventListener(`activate`, (event) =>{
 
     self.clients.claim();
 });
+
+/**
+ * Definição de experiência offline
+ */
+self.addEventListener(`fetch`, (event) =>{
+    if(event.request.mode !== `navigate`){
+        return;
+    }
+
+    event.respondWith(
+        fetch(event.request).catch(() => {
+            return caches.open(CACHE_NAME).then((cache) => {
+                return cache.match(`offline.html`);
+            });
+        })
+    );
+});
