@@ -90,3 +90,29 @@ var cacheDinamico = function(dadosJson){
         });
     }
 }
+
+/**
+ * botao de instalação
+ */
+let disparoInstalacao = null;
+const botaoIntalar = document.getElementById(`botao`);
+
+let iniciarInstalacao = function(){
+    botaoIntalar.removeAttribute(`hidden`);
+    botaoIntalar.addEventListener(`click`, () =>{
+        disparoInstalacao.prompt();
+        disparoInstalacao.userChoice.then((choice) => {
+            if(choice.outcome === `accepted`){
+                console.log(`Usuario instalou`);
+            } else{
+                console.log(`Não instalou`);
+            }
+        })
+    });
+}
+
+window.addEventListener(`beforeinstallprompt`, gravarDisparo);
+
+function gravarDisparo(event){
+    disparoInstalacao = event;
+}
