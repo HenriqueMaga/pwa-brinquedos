@@ -1,1 +1,108 @@
-<p>offline</p>
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Storm Collectibles</title>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="icons/favicon.ico" type="image/x-icon">
+
+        <!--Css do bootstrap-->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+
+        <link href="manifest.json" rel="manifest">
+
+        <!-- IOS meta tags and icons-->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Storm Collectibles">
+        <link rel="apple-touch-icon" href="icons/152.png">
+    </head>
+    <body>
+        <header class="container-fluid fixed-top">
+            <img src="imgs/logo.png" class="logo" alt="">
+        </header>
+
+        <section class="container" style="margin-top: 100px;">
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-warning" role="alert" >
+                        <img src="imgs/offline.png" width="30" alt="offline">
+                        <p>Você está offline. Veja os últimos itens visitados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <main class="container" id="content"> 
+
+        </main>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script>
+            //Carregamento AJAX
+let ajax = new XMLHttpRequest();
+ajax.open('GET', './dados.json', true);
+
+ajax.send()
+
+ajax.onreadystatechange = function() {
+    let content = document.getElementById('content');
+    let jsonData = [];
+    if(this.readyState == 4 && this.status == 200){
+        jsonData = JSON.parse(ajax.responseText);
+        console.log(jsonData);
+
+        if(jsonData.length == 0){
+            content.innerHTML = '<div class="alert alert-warning" role ="alert">Desculpe. Não foi possivel conectar a nossa base de dados! Tente de novo mais tarde</div>';
+            /**
+             * Se não tivermos um retorno valido, encerraremos com mensagem de erro simples.
+             */
+            return;
+        }
+
+        let htmlContent = '';
+
+        for(let i=0; i<jsonData.length; i++){
+            htmlContent += `<div class="row"><div class="col-12"> <h2><span></span>${jsonData[i].categoria}</h2></div> </div>`;
+
+            if(jsonData[i].brinquedos.length == 0){
+                htmlContent += '<div class="row"><div class="col-12"> <div class="alert alert-warning" role ="alert">Desculpe. Ainda não possuimos brinquedos para essa categoria!</div></div> </div>';
+            } else{
+                htmlContent += `<div class="row">`;
+
+                for(let j=0; j<jsonData[i].brinquedos.length; j++){
+                    htmlContent += gerarTemplateBrinquedo(
+                        jsonData[i].brinquedos[j].nome,
+                        jsonData[i].brinquedos[j].imagem,
+                        jsonData[i].brinquedos[j].valor,
+                        jsonData[i].brinquedos[j].whatsapp
+                    );
+                }
+                
+                htmlContent += `</div>`;
+            }
+
+        }
+        content.innerHTML = htmlContent;
+        
+    }
+}
+
+var gerarTemplateBrinquedo = function(nome, imagem, valor, telefone){
+    return `<div class="col-lg-4">
+                <div class="card">
+                    <img src="${imagem}" class="card-img-top" alt="${nome}">
+                    <div class="card-body">
+                        <h5 class="card-title">${nome}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text"><strong>Valor:</strong>${valor}</p>
+                    </div>
+                </div>
+            </div>`;
+}
+        </script>
+    </body>
+</html>

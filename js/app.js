@@ -42,7 +42,7 @@ ajax.onreadystatechange = function() {
             }
 
         }
-
+        cacheDinamico(jsonData);
         content.innerHTML = htmlContent;
         
     }
@@ -62,4 +62,31 @@ var gerarTemplateBrinquedo = function(nome, imagem, valor, telefone){
                     </div>
                 </div>
             </div>`;
+}
+
+/**
+ * Contruir cache dinamico
+ */
+var cacheDinamico = function(dadosJson){
+    if(`caches` in window){
+        console.log(`Deletando cache dinamico antigo`);
+        caches.delete(`brinquedo-app-dinamico`).then(() => {
+            if(dadosJson.length > 0){
+                var files =[`dados.json`];
+
+                for(let i=0; i<dadosJson.length; i++){
+                    for(let j=0; j<dadosJson[i].brinquedos.length; j++){
+                        if(files.indexOf(dadosJson[i].brinquedos[j].imagem) == -1){
+                            files.push(dadosJson[i].brinquedos[j].imagem);
+                        }
+                    }
+                }
+            }
+            caches.open(`brinquedo-app-dinamico`).then((cache) => {
+                cache.addAll(files).then(() => {
+                    console.log(`Novo cache dinamico gerado`);
+                })
+            })
+        });
+    }
 }

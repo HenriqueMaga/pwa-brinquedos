@@ -1,6 +1,6 @@
 `use strict`;
 
-const CACHE_NAME = `briquedo-app-estatico`;
+const CACHE_NAME = `brinquedo-app-estatico`;
 
 const FILES_TO_CACHE = [
     `css/bootstrap.min.css`,
